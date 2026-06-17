@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Morenita — Authentic Mexican Restaurant | Central Valley, CA</title>
+  <meta name="description" content="Family-owned Mexican restaurant serving authentic, made-from-scratch recipes since 1984. Locations in Livingston and Turlock, California." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FDF6EC',
+            'cream-dark': '#F5E6CC',
+            chile: '#B5291E',
+            'chile-light': '#D4362A',
+            terracotta: '#C45C38',
+            gold: '#C8960C',
+            'gold-light': '#E8B424',
+            brown: '#2C1810',
+            'brown-mid': '#4A2C1A',
+            'brown-light': '#7A4A30',
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Lato', 'system-ui', 'sans-serif'],
+          },
+          backgroundImage: {
+            'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background-color: #FDF6EC; color: #2C1810; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #C8960C; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+
+    .hero-bg {
+      background-color: #2C1810;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(176,41,30,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(196,92,56,0.25) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M0 0h80v80H0z'/%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .section-divider {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40'%3E%3Cpath fill='%23FDF6EC' fill-opacity='1' d='M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z'/%3E%3C/svg%3E");
+      background-size: cover;
+      height: 40px;
+    }
+
+    .menu-card:hover { transform: translateY(-4px); }
+    .menu-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+
+    .review-card { border-left: 3px solid #C8960C; }
+
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .float-anim { animation: none; }
+      .menu-card { transition: none; }
+    }
+
+    .star-filled { color: #C8960C; }
+    .pepper-icon { display: inline-block; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Main navigation">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#home" class="flex items-center gap-3 group cursor-pointer">
+      <div class="w-10 h-10 rounded-full bg-chile flex items-center justify-center shadow-lg group-hover:bg-chile-light transition-colors duration-200">
+        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6" aria-hidden="true">
+          <path d="M12 2C8 2 5 6 5 10c0 3 1.5 5.5 4 7v3h6v-3c2.5-1.5 4-4 4-7 0-4-3-8-7-8z" fill="#FDF6EC"/>
+          <path d="M10 19h4M12 2v3" stroke="#C8960C" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="font-display font-bold text-lg leading-none text-white drop-shadow">La Morenita</div>
+        <div class="text-xs text-gold-light tracking-widest uppercase font-body">Est. 1984</div>
+      </div>
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8 text-sm font-body font-bold tracking-wide text-white/90">
+      <a href="#about" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Our Story</a>
+      <a href="#menu" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Menu</a>
+      <a href="#locations" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Locations</a>
+      <a href="#reviews" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Reviews</a>
+      <a href="#contact" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Contact</a>
+    </div>
+
+    <!-- CTA -->
+    <a href="#locations" class="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-brown font-body font-bold text-sm px-5 py-2.5 rounded-full transition-colors duration-200 cursor-pointer shadow-lg">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Find Us
+    </a>
+
+    <!-- Mobile menu button -->
+    <button id="mobile-menu-btn" class="md:hidden text-white p-2 cursor-pointer" aria-label="Open menu" aria-expanded="false">
+      <svg id="menu-open-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div id="mobile-menu" class="hidden md:hidden bg-brown/95 backdrop-blur-md border-t border-white/10">
+    <div class="flex flex-col px-6 py-4 gap-4 text-white font-body font-bold">
+      <a href="#about" class="mobile-nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Our Story</a>
+      <a href="#menu" class="mobile-nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Menu</a>
+      <a href="#locations" class="mobile-nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Locations</a>
+      <a href="#reviews" class="mobile-nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Reviews</a>
+      <a href="#contact" class="mobile-nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Contact</a>
+      <a href="#locations" class="inline-flex items-center gap-2 bg-gold text-brown font-bold text-sm px-5 py-2.5 rounded-full w-fit cursor-pointer">Find Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ───────────────────────────────────────────────────── -->
+<section id="home" class="hero-bg min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20">
+
+  <!-- Decorative circles -->
+  <div class="absolute top-20 right-10 w-64 h-64 rounded-full bg-terracotta/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-chile/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Floating pepper -->
+  <div class="absolute top-32 right-16 float-anim opacity-20 pointer-events-none" aria-hidden="true">
+    <svg viewBox="0 0 40 80" class="w-8 h-16 fill-terracotta">
+      <ellipse cx="20" cy="50" rx="10" ry="28"/>
+      <path d="M20 22 Q28 10 32 4 Q24 8 20 22z"/>
+    </svg>
+  </div>
+  <div class="absolute bottom-40 left-20 float-anim opacity-15 pointer-events-none" style="animation-delay:1.5s" aria-hidden="true">
+    <svg viewBox="0 0 40 80" class="w-6 h-12 fill-gold">
+      <ellipse cx="20" cy="50" rx="10" ry="28"/>
+      <path d="M20 22 Q28 10 32 4 Q24 8 20 22z"/>
+    </svg>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+    <p class="font-body text-gold-light tracking-[0.35em] uppercase text-sm mb-4">Family-Owned · Made From Scratch · Since 1984</p>
+
+    <h1 class="font-display text-white mb-6 leading-tight">
+      <span class="block text-5xl md:text-7xl lg:text-8xl font-black">La Morenita</span>
+      <span class="block text-xl md:text-2xl lg:text-3xl font-normal italic text-cream/80 mt-2">Where Every Bite Feels Like Home</span>
+    </h1>
+
+    <p class="font-body text-cream/70 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+      Authentic Mexican cuisine rooted in tradition, served with love across the Central Valley. From handmade tortillas to soulful mole — this is how it was meant to taste.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#menu" class="cursor-pointer inline-flex items-center gap-2 bg-chile hover:bg-chile-light text-white font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 shadow-xl text-base">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        View Our Menu
+      </a>
+      <a href="#locations" class="cursor-pointer inline-flex items-center gap-2 border-2 border-white/30 hover:border-gold text-white hover:text-gold-light font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+        Our Locations
+      </a>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-16">
+      <div class="text-center">
+        <div class="font-display text-4xl font-black text-gold">40+</div>
+        <div class="font-body text-cream/60 text-sm mt-1 tracking-wide">Years Serving</div>
+      </div>
+      <div class="w-px h-10 bg-white/20 hidden md:block" aria-hidden="true"></div>
+      <div class="text-center">
+        <div class="font-display text-4xl font-black text-gold">2</div>
+        <div class="font-body text-cream/60 text-sm mt-1 tracking-wide">Valley Locations</div>
+      </div>
+      <div class="w-px h-10 bg-white/20 hidden md:block" aria-hidden="true"></div>
+      <div class="text-center">
+        <div class="font-display text-4xl font-black text-gold">★ 4.5</div>
+        <div class="font-body text-cream/60 text-sm mt-1 tracking-wide">Google Rating</div>
+      </div>
+      <div class="w-px h-10 bg-white/20 hidden md:block" aria-hidden="true"></div>
+      <div class="text-center">
+        <div class="font-display text-4xl font-black text-gold">100%</div>
+        <div class="font-body text-cream/60 text-sm mt-1 tracking-wide">From Scratch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 hover:text-gold-light transition-colors duration-200 cursor-pointer" aria-label="Scroll to next section">
+    <svg class="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+  </a>
+</section>
+
+<!-- ─── ABOUT ───────────────────────────────────────────────────── -->
+<section id="about" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Text -->
+      <div class="reveal">
+        <p class="font-body text-terracotta tracking-[0.3em] uppercase text-sm font-bold mb-4">Our Story</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-6 leading-tight">
+          A Family Legacy <br/><em>Rooted in Community</em>
+        </h2>
+        <p class="font-body text-brown-light text-lg leading-relaxed mb-6">
+          La Morenita was born from a dream — to share the rich, soulful flavors of traditional Mexican cooking with the hardworking families of California's Central Valley. Since 1984, we've been that gathering place where neighbors become friends and every meal tells a story.
+        </p>
+        <p class="font-body text-brown-light text-lg leading-relaxed mb-8">
+          Under the loving stewardship of owner Alma — who began as a waitress here 14 years before taking the reins — La Morenita continues the legacy of founders Don Esteban and Doña Sofi. Our recipes haven't changed because they don't need to. Handmade tortillas, slow-simmered mole, and fresh chips and salsa — made the same way, every single day.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <div class="flex items-center gap-2 text-brown font-body font-bold">
+            <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            Handmade Tortillas Daily
+          </div>
+          <div class="flex items-center gap-2 text-brown font-body font-bold">
+            <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            Fresh Chips & Salsa Always
+          </div>
+          <div class="flex items-center gap-2 text-brown font-body font-bold">
+            <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            Family-Friendly Patio
+          </div>
+          <div class="flex items-center gap-2 text-brown font-body font-bold">
+            <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            Catering Available
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="reveal grid grid-cols-2 gap-4">
+        <div class="bg-brown rounded-2xl p-8 flex flex-col items-center justify-center text-center col-span-2 shadow-xl">
+          <div class="font-display text-6xl font-black text-gold mb-2">Est.</div>
+          <div class="font-display text-8xl font-black text-white leading-none">1984</div>
+          <div class="font-body text-cream/60 text-sm mt-3 tracking-widest uppercase">Turlock, California</div>
+        </div>
+        <div class="bg-terracotta rounded-2xl p-6 text-center shadow-lg">
+          <div class="font-display text-4xl font-black text-white mb-1">2</div>
+          <div class="font-body text-white/80 text-sm">Central Valley<br/>Locations</div>
+        </div>
+        <div class="bg-chile rounded-2xl p-6 text-center shadow-lg">
+          <div class="font-display text-4xl font-black text-white mb-1">★★★★★</div>
+          <div class="font-body text-white/80 text-sm">Community<br/>Favorite</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MENU ────────────────────────────────────────────────────── -->
+<section id="menu" class="py-24 bg-brown">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="font-body text-gold-light tracking-[0.3em] uppercase text-sm font-bold mb-4">Our Kitchen</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Menu Highlights</h2>
+      <p class="font-body text-cream/60 text-lg max-w-2xl mx-auto">Every dish made fresh, every day — the way it's always been done.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Card template: dish -->
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-chile to-terracotta"></div>
+        <div class="p-6">
+          <div class="text-4xl mb-3" aria-hidden="true">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><circle cx="20" cy="22" r="14" fill="#C4503820"/><ellipse cx="20" cy="22" rx="10" ry="6" fill="#C45038" opacity="0.7"/><rect x="14" y="8" width="12" height="16" rx="6" fill="#C8960C" opacity="0.8"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Chiles Rellenos</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">Handmade poblano peppers stuffed with savory filling, battered in fluffy egg, and simmered in house-made salsa roja.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-gold bg-gold/10 px-3 py-1 rounded-full">Signature</span>
+            <span class="text-xs font-body text-cream/40">Made from scratch</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-gold to-gold-light"></div>
+        <div class="p-6">
+          <div class="mb-3">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><circle cx="20" cy="24" r="12" fill="#2C1810"/><path d="M10 24 Q20 14 30 24" stroke="#C8960C" stroke-width="2" fill="none"/><circle cx="20" cy="18" r="4" fill="#C8960C" opacity="0.6"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Mole</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">Rich, complex mole crafted from a secret blend of dried chiles, chocolate, and spices — a recipe passed down through generations.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-gold bg-gold/10 px-3 py-1 rounded-full">House Special</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-terracotta to-chile"></div>
+        <div class="p-6">
+          <div class="mb-3">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><ellipse cx="20" cy="28" rx="16" ry="6" fill="#7A4A3020"/><rect x="8" y="18" width="24" height="10" rx="5" fill="#C45038" opacity="0.8"/><rect x="12" y="14" width="16" height="8" rx="4" fill="#C8960C" opacity="0.6"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Chilaquiles</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">Crispy tortilla chips bathed in red or green salsa, topped with crema, queso fresco, and your choice of protein. A breakfast legend.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-terracotta bg-terracotta/10 px-3 py-1 rounded-full">Breakfast Favorite</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-brown-light to-brown-mid"></div>
+        <div class="p-6">
+          <div class="mb-3">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><circle cx="20" cy="22" r="14" fill="#4A2C1A50"/><ellipse cx="20" cy="26" rx="10" ry="5" fill="#7A4A30" opacity="0.8"/><circle cx="20" cy="18" r="6" fill="#C8960C" opacity="0.5"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Birria</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">Slow-braised beef in a rich guajillo and ancho broth, tender and fragrant — served with consommé for dipping.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-gold bg-gold/10 px-3 py-1 rounded-full">Weekend Special</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-chile to-brown-light"></div>
+        <div class="p-6">
+          <div class="mb-3">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><circle cx="20" cy="22" r="14" fill="#B5291E20"/><path d="M10 22 C10 16 30 16 30 22 C30 28 10 28 10 22Z" fill="#B5291E" opacity="0.7"/><circle cx="14" cy="19" r="2" fill="#FDF6EC" opacity="0.8"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Menudo</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">The ultimate Sunday morning bowl — slow-simmered tripe in a bold red chile broth, served with hominy and fresh tortillas on the side.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-chile bg-chile/10 px-3 py-1 rounded-full">Sunday Morning</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5 cursor-default">
+        <div class="h-3 bg-gradient-to-r from-gold-light to-terracotta"></div>
+        <div class="p-6">
+          <div class="mb-3">
+            <svg viewBox="0 0 40 40" class="w-10 h-10" fill="none"><rect x="6" y="20" width="28" height="14" rx="7" fill="#C8960C" opacity="0.7"/><rect x="10" y="24" width="20" height="6" rx="3" fill="#FDF6EC" opacity="0.4"/><circle cx="20" cy="16" r="6" fill="#C45038" opacity="0.6"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-white mb-2">Cecina Plate</h3>
+          <p class="font-body text-cream/60 text-sm leading-relaxed">Thinly sliced, salt-cured beef, pan-seared to perfection and served with fresh beans, rice, and warm handmade tortillas.</p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="text-xs font-body font-bold text-gold bg-gold/10 px-3 py-1 rounded-full">Traditional</span>
+            <span class="text-xs font-body text-cream/40">Generously portioned</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Additional items row -->
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white/5 rounded-xl px-4 py-3 text-center border border-white/10">
+        <div class="font-display text-white font-semibold text-sm">Chalupa</div>
+        <div class="font-body text-cream/40 text-xs mt-1">One of a kind</div>
+      </div>
+      <div class="bg-white/5 rounded-xl px-4 py-3 text-center border border-white/10">
+        <div class="font-display text-white font-semibold text-sm">Flautas</div>
+        <div class="font-body text-cream/40 text-xs mt-1">Crispy & golden</div>
+      </div>
+      <div class="bg-white/5 rounded-xl px-4 py-3 text-center border border-white/10">
+        <div class="font-display text-white font-semibold text-sm">Gorditas</div>
+        <div class="font-body text-cream/40 text-xs mt-1">Hand-pressed</div>
+      </div>
+      <div class="bg-white/5 rounded-xl px-4 py-3 text-center border border-white/10">
+        <div class="font-display text-white font-semibold text-sm">Café de Olla</div>
+        <div class="font-body text-cream/40 text-xs mt-1">Clay-pot coffee</div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="font-body text-cream/50 text-sm italic">Full menu available at both locations. Ask about daily specials — Carne en su Jugo on Wednesdays!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOCATIONS ───────────────────────────────────────────────── -->
+<section id="locations" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="font-body text-terracotta tracking-[0.3em] uppercase text-sm font-bold mb-4">Find Us</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-4">Two Central Valley Locations</h2>
+      <p class="font-body text-brown-light text-lg max-w-2xl mx-auto">Both locations serve the full menu, made fresh each day.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Livingston -->
+      <div class="reveal bg-white rounded-3xl shadow-xl overflow-hidden border border-cream-dark">
+        <div class="h-2 bg-gradient-to-r from-chile to-terracotta"></div>
+        <div class="p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="font-body text-terracotta text-xs tracking-widest uppercase font-bold mb-1">Location 01</div>
+              <h3 class="font-display text-2xl font-bold text-brown">Livingston</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-chile/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">242 N Main St</div>
+                <div class="font-body text-brown-light text-sm">Livingston, CA 95334</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">Hours</div>
+                <div class="font-body text-brown-light text-sm">Mon–Fri: 7am – 9pm</div>
+                <div class="font-body text-brown-light text-sm">Sat–Sun: 7am – 10pm</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">Massive Menu</div>
+                <div class="font-body text-brown-light text-sm">Catering available · Patio seating</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://maps.google.com/?q=242+N+Main+St,+Livingston,+CA+95334" target="_blank" rel="noopener noreferrer" class="cursor-pointer inline-flex items-center gap-2 bg-chile hover:bg-chile-light text-white font-body font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 w-full justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+
+      <!-- Turlock -->
+      <div class="reveal bg-white rounded-3xl shadow-xl overflow-hidden border border-cream-dark">
+        <div class="h-2 bg-gradient-to-r from-gold to-gold-light"></div>
+        <div class="p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="font-body text-gold text-xs tracking-widest uppercase font-bold mb-1">Location 02</div>
+              <h3 class="font-display text-2xl font-bold text-brown">Turlock</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">100 S First St</div>
+                <div class="font-body text-brown-light text-sm">Turlock, CA 95380</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">Hours</div>
+                <div class="font-body text-brown-light text-sm">Mon–Fri: 7am – 9pm</div>
+                <div class="font-body text-brown-light text-sm">Sat–Sun: 7am – 10pm</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              <div>
+                <div class="font-body font-bold text-brown">Family-Friendly · Since 1984</div>
+                <div class="font-body text-brown-light text-sm">2-for-1 Margarita specials · Generous portions</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://maps.google.com/?q=100+S+First+St,+Turlock,+CA+95380" target="_blank" rel="noopener noreferrer" class="cursor-pointer inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-brown font-body font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 w-full justify-center">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─────────────────────────────────────────────────── -->
+<section id="reviews" class="py-24 bg-brown-mid">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="font-body text-gold-light tracking-[0.3em] uppercase text-sm font-bold mb-4">What People Say</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Loved by the Valley</h2>
+      <div class="flex items-center justify-center gap-1 mb-4" aria-label="5 stars">
+        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"It reminds me of the home-cooking of my grandmother. Unapologetically traditional with some of the best mole and enchiladas I've ever had."</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center text-white font-display font-bold text-sm">P</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Peter Bonamici</div>
+            <div class="font-body text-cream/40 text-xs">Local Guide · 104 reviews</div>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"Alma is the new owner and she is an amazing host. Such a cute authentic Mexican experience with the most beautiful little back covered patio."</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-brown font-display font-bold text-sm">S</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Sharif Shakhshir</div>
+            <div class="font-body text-cream/40 text-xs">Local Guide · 56 reviews</div>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"It feels like eating en el rancho. This is a hidden jewel. Great service, tasty, traditional Mexican food — and tortillas hechas a mano!"</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-chile flex items-center justify-center text-white font-display font-bold text-sm">J</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Jorge Herrera</div>
+            <div class="font-body text-cream/40 text-xs">Verified Diner</div>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"The chalupa is one of a kind. Very big portions at very reasonable prices. I had 2 tacos and a chalupa and I wanted to sleep right away. Very cool servers and great food!"</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center text-white font-display font-bold text-sm">S</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Stephen Lee</div>
+            <div class="font-body text-cream/40 text-xs">Local Guide · 740 reviews</div>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"Everyone on the restaurant staff came by to give their condolences and took pictures of our family for us. Being from El Paso, this is definitely the closest thing to home."</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-brown font-display font-bold text-sm">G</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Griselda Rodriguez</div>
+            <div class="font-body text-cream/40 text-xs">Local Guide · 34 reviews</div>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="review-card bg-brown rounded-2xl p-6 reveal">
+        <div class="flex items-center gap-1 mb-3" aria-label="5 stars">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"Some of the best authentic Mexican food you will find. Every flavor — from the coffee, the tortillas by hand, to the meal itself — will remind you of eating at your grandmother's home."</p>
+        <footer class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-chile flex items-center justify-center text-white font-display font-bold text-sm">J</div>
+          <div>
+            <div class="font-body font-bold text-white text-sm">Joe Robledo</div>
+            <div class="font-body text-cream/40 text-xs">Verified Diner</div>
+          </div>
+        </footer>
+      </blockquote>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT / CTA ───────────────────────────────────────────── -->
+<section id="contact" class="py-24 bg-cream">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="font-body text-terracotta tracking-[0.3em] uppercase text-sm font-bold mb-4">Come Visit</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-4">We'd Love to See You</h2>
+      <p class="font-body text-brown-light text-lg max-w-xl mx-auto">Whether it's your first visit or your hundredth, you'll always feel at home at La Morenita.</p>
+    </div>
+
+    <!-- Catering CTA -->
+    <div class="reveal bg-gradient-to-br from-brown to-brown-mid rounded-3xl p-10 md:p-14 text-center max-w-3xl mx-auto shadow-2xl mb-12">
+      <div class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Catering & Private Events</div>
+      <p class="font-body text-cream/70 text-lg mb-8 max-w-lg mx-auto">Hosting a party, quinceañera, or office lunch? We bring the full La Morenita experience to you. Ask about renting our beautiful patio space.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="tel:+12096340000" class="cursor-pointer inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-brown font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          Call to Book
+        </a>
+        <a href="#locations" class="cursor-pointer inline-flex items-center gap-2 border-2 border-white/30 hover:border-gold text-white hover:text-gold-light font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base">
+          Visit In Person
+        </a>
+      </div>
+    </div>
+
+    <!-- Hours quick view -->
+    <div class="reveal grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl p-6 shadow border border-cream-dark">
+        <h3 class="font-display text-lg font-bold text-brown mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Hours
+        </h3>
+        <table class="w-full font-body text-sm" aria-label="Restaurant hours">
+          <tbody>
+            <tr class="border-b border-cream-dark"><td class="py-2 text-brown-light">Monday – Friday</td><td class="py-2 text-brown font-bold text-right">7:00 AM – 9:00 PM</td></tr>
+            <tr class="border-b border-cream-dark"><td class="py-2 text-brown-light">Saturday</td><td class="py-2 text-brown font-bold text-right">7:00 AM – 10:00 PM</td></tr>
+            <tr><td class="py-2 text-brown-light">Sunday</td><td class="py-2 text-brown font-bold text-right">7:00 AM – 10:00 PM</td></tr>
+          </tbody>
+        </table>
+        <p class="font-body text-xs text-brown-light/60 mt-3 italic">Hours may vary by location. Call ahead on holidays.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow border border-cream-dark">
+        <h3 class="font-display text-lg font-bold text-brown mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          Specials
+        </h3>
+        <ul class="font-body text-sm space-y-2">
+          <li class="flex justify-between border-b border-cream-dark py-2"><span class="text-brown-light">Wednesday Special</span><span class="text-brown font-bold">Carne en Su Jugo</span></li>
+          <li class="flex justify-between border-b border-cream-dark py-2"><span class="text-brown-light">Sunday Morning</span><span class="text-brown font-bold">Menudo</span></li>
+          <li class="flex justify-between border-b border-cream-dark py-2"><span class="text-brown-light">Daily</span><span class="text-brown font-bold">Fresh Chips &amp; Salsa</span></li>
+          <li class="flex justify-between py-2"><span class="text-brown-light">Turlock</span><span class="text-brown font-bold">2-for-1 Margaritas</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="bg-brown py-12 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-8 mb-10">
+
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-full bg-chile flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true"><path d="M12 2C8 2 5 6 5 10c0 3 1.5 5.5 4 7v3h6v-3c2.5-1.5 4-4 4-7 0-4-3-8-7-8z" fill="#FDF6EC"/></svg>
+          </div>
+          <div>
+            <div class="font-display font-bold text-white">La Morenita</div>
+            <div class="font-body text-gold text-xs tracking-widest uppercase">Est. 1984</div>
+          </div>
+        </div>
+        <p class="font-body text-cream/50 text-sm leading-relaxed">Authentic, made-from-scratch Mexican cuisine rooted in community and family tradition — Central Valley's beloved gathering place.</p>
+      </div>
+
+      <div>
+        <h4 class="font-display text-white font-bold mb-4">Locations</h4>
+        <div class="space-y-3 font-body text-sm text-cream/60">
+          <div>
+            <div class="text-cream/90 font-bold">Livingston</div>
+            <div>242 N Main St, Livingston, CA 95334</div>
+          </div>
+          <div>
+            <div class="text-cream/90 font-bold">Turlock</div>
+            <div>100 S First St, Turlock, CA 95380</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-display text-white font-bold mb-4">Quick Links</h4>
+        <nav aria-label="Footer navigation">
+          <ul class="space-y-2 font-body text-sm text-cream/60">
+            <li><a href="#about" class="hover:text-gold transition-colors duration-200 cursor-pointer">Our Story</a></li>
+            <li><a href="#menu" class="hover:text-gold transition-colors duration-200 cursor-pointer">Menu Highlights</a></li>
+            <li><a href="#locations" class="hover:text-gold transition-colors duration-200 cursor-pointer">Locations &amp; Hours</a></li>
+            <li><a href="#reviews" class="hover:text-gold transition-colors duration-200 cursor-pointer">Reviews</a></li>
+            <li><a href="#contact" class="hover:text-gold transition-colors duration-200 cursor-pointer">Catering</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-body text-cream/30 text-xs">© 2025 La Morenita Restaurant. All rights reserved.</p>
+      <p class="font-body text-cream/30 text-xs">Family-owned · Made from scratch · Since 1984</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ─────────────────────────────────────────────────── -->
+<script>
+  // Navbar scroll behavior
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('bg-brown/95', 'backdrop-blur-md', 'shadow-xl');
+    } else {
+      navbar.classList.remove('bg-brown/95', 'backdrop-blur-md', 'shadow-xl');
+    }
+  }, { passive: true });
+
+  // Mobile menu
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-open-icon');
+  const closeIcon = document.getElementById('menu-close-icon');
+  btn.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', isOpen);
+    openIcon.classList.toggle('hidden', !isOpen);
+    closeIcon.classList.toggle('hidden', isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      openIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

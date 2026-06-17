@@ -3,323 +3,583 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Morenita — Authentic Mexican Food | Lincoln Heights, Los Angeles</title>
-  <meta name="description" content="Latina-owned family restaurant serving authentic Mexican food in Lincoln Heights, LA since the 1970s. Handmade tortillas, chiles rellenos, menudo, café de olla — no canned ingredients, ever." />
-  <meta property="og:title" content="La Morenita — Authentic Mexican Food | Lincoln Heights, LA" />
-  <meta property="og:description" content="Latina-owned family restaurant in Lincoln Heights. Fresh, scratch-made Mexican cuisine since the 1970s." />
-  <meta property="og:type" content="restaurant" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream:      '#FDF6EC',
-            'cream-dark':'#F0E0C0',
-            chile:      '#B91C1C',
-            'chile-light':'#DC2626',
-            terracotta: '#C2410C',
-            gold:       '#B45309',
-            'gold-light':'#D97706',
-            brown:      '#2C1A0E',
-            'brown-mid':'#4A2C1A',
-            'brown-light':'#78350F',
-            sage:       '#15803D',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'Georgia', 'serif'],
-            body:    ['"Inter"', 'system-ui', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
+  <title>La Morenita — Authentic Mexican Food | Lincoln Heights, LA</title>
+  <meta name="description" content="Latina-owned family restaurant in Lincoln Heights, LA. Handmade tortillas, chiles rellenos, menudo — fresh daily since the 1970s. 2620 N Broadway, Los Angeles, CA 90031." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: #FDF6EC; color: #2C1A0E; overflow-x: hidden; }
-    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    /* ── Reset & base ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FDF6EC;
+      color: #2C1A0E;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-    /* ── Navbar underline ── */
-    .nav-link { position: relative; }
-    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:#D97706; transition:width .3s ease; }
-    .nav-link:hover::after { width:100%; }
+    /* ── Design tokens ──────────────────────────────────────── */
+    :root {
+      --chile:       #B91C1C;
+      --chile-h:     #DC2626;
+      --terra:       #C2410C;
+      --gold:        #B45309;
+      --gold-l:      #D97706;
+      --cream:       #FDF6EC;
+      --cream-d:     #F0E0C0;
+      --brown:       #2C1A0E;
+      --brown-m:     #4A2C1A;
+      --brown-l:     #78350F;
+      --white:       #ffffff;
+      --sage:        #15803D;
+      --r: 0.75rem;
+      --r-lg: 1.25rem;
+    }
 
-    /* ── Hero ── */
-    .hero-bg {
+    /* ── Typography ─────────────────────────────────────────── */
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+
+    /* ── Layout helpers ─────────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 72px 0; }
+
+    /* ── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 0.875rem; padding: 12px 24px; border-radius: 999px;
+      cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+      border: 2px solid transparent; line-height: 1;
+    }
+    .btn-primary   { background: var(--chile); color: #fff; }
+    .btn-primary:hover { background: var(--chile-h); }
+    .btn-outline   { border-color: rgba(255,255,255,.35); color: #fff; }
+    .btn-outline:hover { border-color: var(--gold-l); color: var(--gold-l); }
+    .btn-gold      { background: var(--gold-l); color: var(--brown); }
+    .btn-gold:hover { background: var(--gold); }
+    .btn-outline-dark { border-color: rgba(44,26,14,.25); color: var(--brown-l); }
+    .btn-outline-dark:hover { border-color: var(--chile); color: var(--chile); }
+
+    /* ── Icon helper ─────────────────────────────────────────── */
+    .icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .icon-sm { width: 14px; height: 14px; }
+
+    /* ── ═══════════════ NAVBAR ══════════════════════════════ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background .3s, box-shadow .3s;
+    }
+    #navbar.scrolled {
+      background: rgba(44,26,14,.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+    }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 24px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .nav-logo-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--chile); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .2s;
+    }
+    .nav-logo:hover .nav-logo-icon { background: var(--chile-h); }
+    .nav-logo-text { line-height: 1; }
+    .nav-logo-name { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; color: #fff; }
+    .nav-logo-sub  { font-size: 0.65rem; color: var(--gold-l); letter-spacing: .18em; text-transform: uppercase; margin-top: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-link {
+      font-size: 0.8125rem; font-weight: 600; color: rgba(255,255,255,.85);
+      letter-spacing: .03em; position: relative; cursor: pointer;
+      transition: color .2s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--gold-l);
+      transition: width .3s;
+    }
+    .nav-link:hover { color: var(--gold-l); }
+    .nav-link:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.8125rem; font-weight: 700; color: #fff;
+      background: var(--chile); border-radius: 999px; padding: 8px 18px;
+      display: flex; align-items: center; gap: 6px;
+      transition: background .2s; cursor: pointer;
+    }
+    .nav-cta:hover { background: var(--chile-h); }
+
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      color: #fff; padding: 4px;
+    }
+    .mobile-menu {
+      display: none; background: rgba(44,26,14,.97);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu-inner {
+      padding: 16px 24px 20px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .mobile-menu a {
+      font-size: 0.9375rem; font-weight: 600; color: rgba(255,255,255,.85);
+      transition: color .2s; cursor: pointer;
+    }
+    .mobile-menu a:hover { color: var(--gold-l); }
+
+    /* ── ═══════════════ HERO ════════════════════════════════ */
+    #home {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 88px 24px 40px;
       background-color: #1a0a04;
       background-image:
-        radial-gradient(ellipse at 15% 60%, rgba(185,28,28,.45) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 15%, rgba(194,65,12,.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 15% 60%, rgba(185,28,28,.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(194,65,12,.28) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 90%, rgba(180,83,9,.2) 0%, transparent 40%);
     }
-
-    /* ── Scroll-reveal ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+    .hero-blob {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      filter: blur(80px);
     }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-    .reveal-left  { opacity:0; transform:translateX(-40px); transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
-    .reveal-left.visible  { opacity:1; transform:translateX(0); }
-    .reveal-right { opacity:0; transform:translateX(40px);  transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
-    .reveal-right.visible { opacity:1; transform:translateX(0); }
+    .hero-float {
+      position: absolute; pointer-events: none;
+      animation: float 5s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-10px) rotate(4deg)} }
 
-    /* stagger children */
-    .stagger > * { opacity:0; transform:translateY(24px); transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1); }
-    .stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.05s; }
-    .stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.15s; }
-    .stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.25s; }
-    .stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.35s; }
-    .stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.45s; }
-    .stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:.55s; }
+    .hero-content { text-align: center; position: relative; z-index: 2; max-width: 780px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px; padding: 6px 14px; margin-bottom: 20px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(255,255,255,.75);
+    }
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
+      color: #fff; line-height: 1; margin-bottom: 12px;
+    }
+    .hero-sub {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: rgba(253,246,236,.7);
+      margin-bottom: 16px;
+    }
+    .hero-desc {
+      font-size: 1rem; color: rgba(253,246,236,.6); max-width: 520px;
+      margin: 0 auto 32px; line-height: 1.7;
+    }
+    .hero-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 48px; }
 
-    /* ── Menu cards ── */
-    .menu-card { transition: transform .25s ease, box-shadow .25s ease; cursor: default; }
-    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0; border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 32px;
+    }
+    .stat {
+      padding: 0 32px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold-l); }
+    .stat-label { font-size: 0.6875rem; font-weight: 600; color: rgba(253,246,236,.45); letter-spacing: .12em; text-transform: uppercase; margin-top: 2px; }
 
-    /* ── Float animation ── */
-    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-10px) rotate(3deg)} }
-    .float { animation: float 5s ease-in-out infinite; }
+    .scroll-cue {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.3); cursor: pointer; z-index: 2;
+      animation: bounce 2s ease-in-out infinite;
+      transition: color .2s;
+    }
+    .scroll-cue:hover { color: var(--gold-l); }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
-    /* ── Shimmer badge ── */
-    @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
-    .shimmer-badge {
-      background: linear-gradient(90deg, #B45309 0%, #D97706 40%, #FCD34D 50%, #D97706 60%, #B45309 100%);
-      background-size: 200% auto;
-      animation: shimmer 3s linear infinite;
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+    /* ── ═══════════════ ABOUT ═══════════════════════════════ */
+    #about { background: var(--cream); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .section-eyebrow {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--terra); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700;
+      color: var(--brown); margin-bottom: 16px; line-height: 1.2;
+    }
+    .section-body { font-size: 0.9375rem; color: var(--brown-l); line-height: 1.75; margin-bottom: 12px; }
+
+    .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.75rem; font-weight: 600; padding: 5px 12px; border-radius: 999px;
+    }
+    .pill-red   { background: rgba(185,28,28,.08); color: var(--chile); }
+    .pill-green { background: rgba(21,128,61,.08); color: var(--sage); }
+    .pill-gold  { background: rgba(180,83,9,.08); color: var(--gold); }
+    .pill-terra { background: rgba(194,65,12,.08); color: var(--terra); }
+
+    .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .about-card {
+      border-radius: var(--r-lg); padding: 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .about-card-hero { grid-column: 1/-1; background: var(--brown); padding: 32px; }
+    .about-card-hero .est { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 900; color: var(--gold-l); line-height: 1; }
+    .about-card-hero .year { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: #fff; line-height: 1; }
+    .about-card-hero .sub { font-size: 0.7rem; color: rgba(253,246,236,.4); letter-spacing: .2em; text-transform: uppercase; margin-top: 8px; }
+    .about-card-red  { background: var(--chile); }
+    .about-card-terra { background: var(--terra); }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #fff; }
+    .card-sub   { font-size: 0.75rem; color: rgba(255,255,255,.65); margin-top: 4px; }
+
+    /* ── ═══════════════ MENU ════════════════════════════════ */
+    #menu { background: var(--brown); }
+    #menu .section-eyebrow { color: var(--gold-l); }
+    #menu .section-title { color: #fff; }
+    #menu .section-desc { font-size: 0.9375rem; color: rgba(253,246,236,.5); }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+    .menu-card {
+      background: var(--brown-m); border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.05); overflow: hidden;
+      transition: transform .25s, box-shadow .25s; cursor: default;
+    }
+    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+    .menu-bar { height: 3px; }
+    .menu-body { padding: 20px; }
+    .menu-icon-wrap {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+    }
+    .menu-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .menu-desc { font-size: 0.8125rem; color: rgba(253,246,236,.55); line-height: 1.65; }
+    .menu-tag {
+      display: inline-block; margin-top: 12px;
+      font-size: 0.6875rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 999px; letter-spacing: .04em;
     }
 
-    /* ── Review border ── */
-    .review-card { border-left: 3px solid #D97706; }
+    .menu-also { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+    .menu-also-item {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--r); padding: 10px 12px; text-align: center;
+    }
+    .menu-also-name { font-family: 'Playfair Display', serif; font-size: 0.875rem; font-weight: 600; color: #fff; }
+    .menu-also-sub  { font-size: 0.6875rem; color: rgba(253,246,236,.35); margin-top: 2px; }
 
-    /* ── Map ── */
-    .map-frame { filter: sepia(.15) contrast(1.05); border-radius: 1rem; }
+    /* ── ═══════════════ LOCATION ════════════════════════════ */
+    #location { background: var(--cream); }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .location-card {
+      background: #fff; border-radius: 1.5rem;
+      border: 1px solid var(--cream-d); overflow: hidden;
+      box-shadow: 0 8px 32px rgba(44,26,14,.08);
+    }
+    .location-card-top { height: 4px; background: linear-gradient(90deg, var(--chile), var(--terra)); }
+    .location-card-body { padding: 28px 28px 24px; }
+    .location-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--brown); margin-bottom: 20px; }
+    .info-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+    .info-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(180,83,9,.1); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon svg { width: 16px; height: 16px; color: var(--gold); }
+    .info-label { font-size: 0.75rem; font-weight: 700; color: var(--brown); margin-bottom: 2px; }
+    .info-val   { font-size: 0.875rem; color: var(--brown-l); line-height: 1.5; }
+    .info-val a { color: var(--brown-l); transition: color .2s; }
+    .info-val a:hover { color: var(--chile); }
+    .hours-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--cream-d); font-size: 0.8125rem; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row-day { color: var(--brown-l); }
+    .hours-row-time { font-weight: 600; color: var(--brown); }
+    .amenities-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .map-wrap {
+      border-radius: 1.5rem; overflow: hidden;
+      border: 1px solid var(--cream-d);
+      box-shadow: 0 8px 32px rgba(44,26,14,.08);
+      min-height: 440px;
+    }
+    .map-wrap iframe { display: block; width: 100%; height: 440px; border: none; }
+
+    .location-btns { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+
+    /* ── ═══════════════ REVIEWS ═════════════════════════════ */
+    #reviews { background: var(--brown-m); }
+    #reviews .section-eyebrow { color: var(--gold-l); }
+    #reviews .section-title { color: #fff; }
+    .stars-row { display: flex; align-items: center; gap: 3px; margin-bottom: 4px; }
+    .star-icon { width: 16px; height: 16px; fill: var(--gold-l); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .review-card {
+      background: var(--brown); border-radius: var(--r-lg);
+      padding: 20px; border-left: 3px solid var(--gold-l);
+    }
+    .review-text { font-size: 0.8375rem; color: rgba(253,246,236,.78); line-height: 1.7; margin: 10px 0 16px; }
+    .review-author { display: flex; align-items: center; gap: 10px; }
+    .review-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 0.875rem; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .review-name { font-size: 0.8125rem; font-weight: 700; color: #fff; }
+    .review-source { font-size: 0.6875rem; color: rgba(253,246,236,.35); }
+
+    .reviews-cta { text-align: center; margin-top: 28px; }
+    .btn-ghost {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; font-size: 0.8125rem; font-weight: 600; padding: 10px 22px;
+      border-radius: 999px; cursor: pointer; transition: background .2s; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.15); }
+
+    /* ── ═══════════════ CONTACT ═════════════════════════════ */
+    #contact { background: var(--cream); }
+    .cta-banner {
+      background: linear-gradient(135deg, var(--brown) 0%, var(--brown-m) 100%);
+      border-radius: 1.5rem; padding: 48px; text-align: center;
+      box-shadow: 0 16px 48px rgba(44,26,14,.2); margin-bottom: 28px;
+    }
+    .cta-banner h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); color: #fff; margin-bottom: 10px; }
+    .cta-banner p  { font-size: 0.9375rem; color: rgba(253,246,236,.6); max-width: 420px; margin: 0 auto 24px; }
+    .cta-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .contact-card {
+      background: #fff; border-radius: var(--r-lg); padding: 24px;
+      border: 1px solid var(--cream-d); box-shadow: 0 4px 16px rgba(44,26,14,.06);
+    }
+    .contact-card h4 { font-size: 1rem; font-weight: 700; color: var(--brown); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+    .contact-card h4 svg { width: 18px; height: 18px; color: var(--chile); flex-shrink: 0; }
+    .hours-table { width: 100%; font-size: 0.8125rem; border-collapse: collapse; }
+    .hours-table td { padding: 6px 0; vertical-align: top; }
+    .hours-table td:first-child { color: var(--brown-l); }
+    .hours-table td:last-child { text-align: right; font-weight: 600; color: var(--brown); }
+    .hours-table tr { border-bottom: 1px solid var(--cream-d); }
+    .hours-table tr:last-child { border-bottom: none; }
+    .specials-list { list-style: none; }
+    .specials-list li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--cream-d); font-size: 0.8125rem; }
+    .specials-list li:last-child { border-bottom: none; }
+    .specials-list .s-label { color: var(--brown-l); }
+    .specials-list .s-val   { font-weight: 600; color: var(--brown); }
+
+    /* ── ═══════════════ FOOTER ══════════════════════════════ */
+    footer {
+      background: var(--brown); padding: 48px 0 28px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-brand p { font-size: 0.8125rem; color: rgba(253,246,236,.4); line-height: 1.7; margin-top: 12px; max-width: 280px; }
+    .social-row { display: flex; gap: 8px; margin-top: 16px; }
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .2s;
+    }
+    .social-btn:hover { background: var(--chile); }
+    .social-btn svg { width: 15px; height: 15px; fill: #fff; }
+    .footer-col h4 { font-size: 0.9375rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .footer-col address { font-style: normal; font-size: 0.8125rem; color: rgba(253,246,236,.45); line-height: 1.8; }
+    .footer-col a.tel { font-size: 0.8125rem; color: var(--gold-l); margin-top: 6px; display: inline-block; transition: color .2s; }
+    .footer-col a.tel:hover { color: var(--gold); }
+    .footer-nav { list-style: none; }
+    .footer-nav li { margin-bottom: 8px; }
+    .footer-nav a { font-size: 0.8125rem; color: rgba(253,246,236,.45); transition: color .2s; cursor: pointer; }
+    .footer-nav a:hover { color: var(--gold-l); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.07); padding-top: 20px;
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+    }
+    .footer-bottom span { font-size: 0.6875rem; color: rgba(253,246,236,.2); }
+
+    /* ── ═══════════════ SCROLL REVEAL ═══════════════════════ */
+    .reveal, .reveal-l, .reveal-r {
+      opacity: 0; transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal   { transform: translateY(28px); }
+    .reveal-l { transform: translateX(-36px); }
+    .reveal-r { transform: translateX(36px); }
+    .reveal.in, .reveal-l.in, .reveal-r.in { opacity: 1; transform: none; }
+
+    .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:.04s; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay:.12s; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:.2s; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:.28s; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay:.36s; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay:.44s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal,.reveal-left,.reveal-right,.stagger>* { transition:none; opacity:1; transform:none; }
-      .float { animation:none; }
+      .reveal,.reveal-l,.reveal-r,.stagger>* { transition:none; opacity:1; transform:none; }
+      .hero-float { animation:none; }
+      .scroll-cue { animation:none; }
+    }
+
+    /* ── ═══════════════ RESPONSIVE ══════════════════════════ */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
+      .about-grid, .location-grid, .contact-grid { grid-template-columns: 1fr; }
+      .menu-grid   { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 0 16px; }
+      .section { padding: 52px 0; }
+    }
+    @media (max-width: 600px) {
+      .menu-grid   { grid-template-columns: 1fr; }
+      .menu-also   { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats  { gap: 16px; }
+      .stat { border-right: none; padding: 0 12px; }
+      .cta-banner  { padding: 28px 20px; }
+      .map-wrap iframe { height: 280px; }
+      .map-wrap { min-height: auto; }
     }
   </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════
-     NAVBAR
-════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Main navigation">
-  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-
-    <!-- Logo -->
-    <a href="#home" class="flex items-center gap-3 group cursor-pointer">
-      <div class="w-10 h-10 rounded-full bg-chile flex items-center justify-center shadow-lg group-hover:bg-chile-light transition-colors duration-200 flex-shrink-0">
-        <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6" aria-hidden="true">
+<!-- ═══════════════════ NAVBAR ═══════════════════════════════ -->
+<nav id="navbar" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
           <path d="M12 3C9 3 6.5 6 6.5 9.5c0 2.5 1.2 4.7 3.5 6V18h4v-2.5c2.3-1.3 3.5-3.5 3.5-6C17.5 6 15 3 12 3z" fill="#FDF6EC"/>
           <path d="M10 18h4M12 3v2.5" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
-      <div>
-        <div class="font-display font-black text-lg leading-none text-white drop-shadow-sm">La Morenita</div>
-        <div class="text-[10px] text-gold-light tracking-[.25em] uppercase font-body mt-0.5">Lincoln Heights, LA</div>
+      <div class="nav-logo-text">
+        <div class="nav-logo-name">La Morenita</div>
+        <div class="nav-logo-sub">Lincoln Heights, LA</div>
       </div>
     </a>
 
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8 text-sm font-body font-semibold tracking-wide text-white/90">
-      <a href="#about"   class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Our Story</a>
-      <a href="#menu"    class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Menu</a>
-      <a href="#location" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Location</a>
-      <a href="#reviews" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Reviews</a>
-      <a href="#contact" class="nav-link hover:text-gold-light transition-colors duration-200 cursor-pointer">Contact</a>
+    <div class="nav-links">
+      <a href="#about"    class="nav-link">Our Story</a>
+      <a href="#menu"     class="nav-link">Menu</a>
+      <a href="#location" class="nav-link">Location</a>
+      <a href="#reviews"  class="nav-link">Reviews</a>
+      <a href="#contact"  class="nav-link">Contact</a>
     </div>
 
-    <!-- CTA -->
-    <a href="tel:+13232211687"
-       class="hidden md:inline-flex items-center gap-2 bg-chile hover:bg-chile-light text-white font-body font-bold text-sm px-5 py-2.5 rounded-full transition-colors duration-200 cursor-pointer shadow-lg">
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-      </svg>
+    <a href="tel:+13232211687" class="nav-cta">
+      <svg class="icon-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
       (323) 221-1687
     </a>
 
-    <!-- Mobile button -->
-    <button id="mobile-menu-btn" class="md:hidden text-white p-2 cursor-pointer" aria-label="Open menu" aria-expanded="false">
-      <svg id="icon-open"  class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      <svg id="icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    <button class="hamburger" id="ham-btn" aria-label="Toggle menu" aria-expanded="false">
+      <svg id="ham-open"  width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
-
-  <!-- Mobile dropdown -->
-  <div id="mobile-menu" class="hidden md:hidden bg-brown/97 backdrop-blur-md border-t border-white/10">
-    <div class="flex flex-col px-6 py-5 gap-4 text-white font-body font-semibold">
-      <a href="#about"    class="mobile-link hover:text-gold-light transition-colors cursor-pointer">Our Story</a>
-      <a href="#menu"     class="mobile-link hover:text-gold-light transition-colors cursor-pointer">Menu</a>
-      <a href="#location" class="mobile-link hover:text-gold-light transition-colors cursor-pointer">Location</a>
-      <a href="#reviews"  class="mobile-link hover:text-gold-light transition-colors cursor-pointer">Reviews</a>
-      <a href="#contact"  class="mobile-link hover:text-gold-light transition-colors cursor-pointer">Contact</a>
-      <a href="tel:+13232211687" class="inline-flex items-center gap-2 bg-chile text-white font-bold text-sm px-5 py-2.5 rounded-full w-fit cursor-pointer">
-        Call (323) 221-1687
-      </a>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-inner">
+      <a href="#about"    class="m-link">Our Story</a>
+      <a href="#menu"     class="m-link">Menu</a>
+      <a href="#location" class="m-link">Location</a>
+      <a href="#reviews"  class="m-link">Reviews</a>
+      <a href="#contact"  class="m-link">Contact</a>
+      <a href="tel:+13232211687" style="background:var(--chile);color:#fff;padding:9px 18px;border-radius:999px;font-weight:700;font-size:.8125rem;display:inline-block;margin-top:4px;">Call (323) 221-1687</a>
     </div>
   </div>
 </nav>
 
 
-<!-- ════════════════════════════════════
-     HERO
-════════════════════════════════════ -->
-<section id="home" class="hero-bg min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20">
-
-  <!-- Decorative blobs -->
-  <div class="absolute top-24 right-0 w-72 h-72 rounded-full bg-terracotta/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
-  <div class="absolute bottom-16 left-0 w-96 h-96 rounded-full bg-chile/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
-
-  <!-- Floating chili -->
-  <div class="absolute top-36 right-12 float opacity-20 pointer-events-none" aria-hidden="true">
-    <svg viewBox="0 0 30 70" class="w-7 h-14 fill-terracotta">
-      <ellipse cx="15" cy="45" rx="8" ry="22"/>
-      <path d="M15 23 Q22 10 25 4 Q18 8 15 23z"/>
-    </svg>
+<!-- ═══════════════════ HERO ══════════════════════════════════ -->
+<section id="home">
+  <div class="hero-blob" style="top:10%;right:0;width:300px;height:300px;background:rgba(194,65,12,.18);" aria-hidden="true"></div>
+  <div class="hero-blob" style="bottom:10%;left:0;width:380px;height:380px;background:rgba(185,28,28,.14);" aria-hidden="true"></div>
+  <div class="hero-float" style="top:28%;right:8%;opacity:.18;" aria-hidden="true">
+    <svg viewBox="0 0 24 56" width="20" height="44"><ellipse cx="12" cy="36" rx="7" ry="18" fill="#C2410C"/><path d="M12 18 Q18 8 20 3 Q14 7 12 18z" fill="#C2410C"/></svg>
   </div>
-  <div class="absolute bottom-36 left-14 float opacity-15 pointer-events-none" style="animation-delay:2s" aria-hidden="true">
-    <svg viewBox="0 0 30 70" class="w-5 h-10 fill-gold-light">
-      <ellipse cx="15" cy="45" rx="8" ry="22"/>
-      <path d="M15 23 Q22 10 25 4 Q18 8 15 23z"/>
-    </svg>
+  <div class="hero-float" style="bottom:25%;left:7%;opacity:.13;animation-delay:2s;" aria-hidden="true">
+    <svg viewBox="0 0 24 56" width="14" height="30"><ellipse cx="12" cy="36" rx="7" ry="18" fill="#D97706"/><path d="M12 18 Q18 8 20 3 Q14 7 12 18z" fill="#D97706"/></svg>
   </div>
 
-  <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
-      <svg class="w-3.5 h-3.5 text-gold-light flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-      </svg>
-      <span class="font-body text-white/80 text-xs tracking-widest uppercase">Latina Owned · Family Operated · Since the 1970s</span>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="10" height="10" fill="#D97706" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      Latina Owned &nbsp;·&nbsp; Family Operated &nbsp;·&nbsp; Since the 1970s
     </div>
-
-    <h1 class="font-display text-white mb-6 leading-tight">
-      <span class="block text-5xl md:text-7xl lg:text-8xl font-black">La Morenita</span>
-      <span class="block text-xl md:text-2xl font-normal italic text-cream/75 mt-3">Authentic Mexican Food — Made with Love</span>
-    </h1>
-
-    <p class="font-body text-cream/65 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-      No canned ingredients. No shortcuts. Just fresh, handmade food cooked daily the way it was meant to taste — in the heart of Lincoln Heights, Los Angeles.
-    </p>
-
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#menu"
-         class="cursor-pointer inline-flex items-center gap-2 bg-chile hover:bg-chile-light text-white font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 shadow-2xl text-base">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-        </svg>
+    <h1 class="hero-title">La Morenita</h1>
+    <p class="hero-sub">Authentic Mexican Food — Made with Love</p>
+    <p class="hero-desc">No canned ingredients. No shortcuts. Fresh, handmade cooking daily in the heart of Lincoln Heights, Los Angeles.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn btn-primary">
+        <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         See Our Menu
       </a>
-      <a href="#location"
-         class="cursor-pointer inline-flex items-center gap-2 border-2 border-white/30 hover:border-gold-light text-white hover:text-gold-light font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
+      <a href="#location" class="btn btn-outline">
+        <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         Get Directions
       </a>
     </div>
-
-    <!-- Stats -->
-    <div class="mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-14">
-      <div class="text-center">
-        <div class="font-display text-3xl md:text-4xl font-black text-gold-light">50+</div>
-        <div class="font-body text-cream/50 text-xs mt-1 tracking-wide uppercase">Years Serving</div>
-      </div>
-      <div class="w-px h-8 bg-white/15 hidden md:block" aria-hidden="true"></div>
-      <div class="text-center">
-        <div class="font-display text-3xl md:text-4xl font-black text-gold-light">100%</div>
-        <div class="font-body text-cream/50 text-xs mt-1 tracking-wide uppercase">Fresh Daily</div>
-      </div>
-      <div class="w-px h-8 bg-white/15 hidden md:block" aria-hidden="true"></div>
-      <div class="text-center">
-        <div class="font-display text-3xl md:text-4xl font-black text-gold-light">0</div>
-        <div class="font-body text-cream/50 text-xs mt-1 tracking-wide uppercase">Canned Ingredients</div>
-      </div>
-      <div class="w-px h-8 bg-white/15 hidden md:block" aria-hidden="true"></div>
-      <div class="text-center">
-        <div class="font-display text-3xl md:text-4xl font-black text-gold-light">★ 4.5</div>
-        <div class="font-body text-cream/50 text-xs mt-1 tracking-wide uppercase">Yelp Rating</div>
-      </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Years Serving</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Fresh Daily</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Canned Ingredients</div></div>
+      <div class="stat"><div class="stat-num">★ 4.5</div><div class="stat-label">Yelp Rating</div></div>
     </div>
   </div>
-
-  <!-- Scroll cue -->
-  <a href="#about"
-     class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/35 hover:text-gold-light transition-colors duration-200 cursor-pointer"
-     aria-label="Scroll down">
-    <svg class="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-    </svg>
+  <a href="#about" class="scroll-cue" aria-label="Scroll down">
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
   </a>
 </section>
 
 
-<!-- ════════════════════════════════════
-     ABOUT
-════════════════════════════════════ -->
-<section id="about" class="py-24 bg-cream">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-
-      <!-- Text -->
-      <div class="reveal-left">
-        <p class="font-body text-terracotta tracking-[.3em] uppercase text-sm font-bold mb-4">Our Story</p>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-6 leading-tight">
-          A Latina Legacy<br/><em>Rooted in Lincoln Heights</em>
-        </h2>
-        <p class="font-body text-brown-light text-lg leading-relaxed mb-5">
-          La Morenita has been a cornerstone of Lincoln Heights since the 1970s — a Latina-owned family business where every dish is made from scratch, every single day.
-        </p>
-        <p class="font-body text-brown-light text-lg leading-relaxed mb-8">
-          We believe in real food: no canned ingredients, no shortcuts. From our <strong class="text-brown">handmade tortillas</strong> pressed fresh each morning to our <strong class="text-brown">rich chiles rellenos</strong> simmered in house salsa — everything on your plate carries generations of love and tradition. Come as a stranger, leave as family.
-        </p>
-
-        <!-- Feature pills -->
-        <div class="flex flex-wrap gap-3">
-          <span class="inline-flex items-center gap-1.5 bg-chile/10 text-chile font-body font-semibold text-sm px-4 py-2 rounded-full">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+<!-- ═══════════════════ ABOUT ═════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal-l">
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-title">A Latina Legacy<br/><em>Rooted in Lincoln Heights</em></h2>
+        <p class="section-body">La Morenita has been a cornerstone of Lincoln Heights since the 1970s — a Latina-owned family business where every dish is made from scratch, every single day.</p>
+        <p class="section-body">We believe in real food: no canned ingredients, no shortcuts. From our <strong>handmade tortillas</strong> pressed fresh each morning to our <strong>rich chiles rellenos</strong> — everything on your plate carries generations of love and tradition.</p>
+        <div class="pill-group">
+          <span class="pill pill-red">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             Latina Owned &amp; Operated
           </span>
-          <span class="inline-flex items-center gap-1.5 bg-sage/10 text-sage font-body font-semibold text-sm px-4 py-2 rounded-full">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span class="pill pill-green">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             LGBTQ+ Welcoming
           </span>
-          <span class="inline-flex items-center gap-1.5 bg-gold/10 text-gold font-body font-semibold text-sm px-4 py-2 rounded-full">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span class="pill pill-gold">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             Pet-Friendly Patio
           </span>
-          <span class="inline-flex items-center gap-1.5 bg-terracotta/10 text-terracotta font-body font-semibold text-sm px-4 py-2 rounded-full">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span class="pill pill-terra">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             No Canned Ingredients
           </span>
         </div>
       </div>
-
-      <!-- Visual cards -->
-      <div class="reveal-right grid grid-cols-2 gap-4">
-        <div class="col-span-2 bg-brown rounded-2xl p-10 text-center shadow-xl">
-          <div class="font-display text-5xl font-black text-gold-light mb-1">Est.</div>
-          <div class="font-display text-7xl font-black text-white leading-none">1970s</div>
-          <div class="font-body text-cream/50 text-sm mt-3 tracking-widest uppercase">Lincoln Heights, Los Angeles</div>
+      <div class="reveal-r about-cards">
+        <div class="about-card about-card-hero">
+          <div class="est">Est.</div>
+          <div class="year">1970s</div>
+          <div class="sub">Lincoln Heights, Los Angeles</div>
         </div>
-        <div class="bg-chile rounded-2xl p-6 text-center shadow-lg">
-          <div class="font-display text-3xl font-black text-white mb-1">Hecho</div>
-          <div class="font-body text-white/75 text-sm">a Mano<br/>Every Day</div>
+        <div class="about-card about-card-red">
+          <div class="card-title">Hecho a Mano</div>
+          <div class="card-sub">Every single day</div>
         </div>
-        <div class="bg-terracotta rounded-2xl p-6 text-center shadow-lg">
-          <div class="font-display text-3xl font-black text-white mb-1">Family</div>
-          <div class="font-body text-white/75 text-sm">Business<br/>Since Day One</div>
+        <div class="about-card about-card-terra">
+          <div class="card-title">Family Business</div>
+          <div class="card-sub">Since day one</div>
         </div>
       </div>
     </div>
@@ -327,258 +587,185 @@
 </section>
 
 
-<!-- ════════════════════════════════════
-     MENU
-════════════════════════════════════ -->
-<section id="menu" class="py-24 bg-brown">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="text-center mb-16 reveal">
-      <p class="font-body text-gold-light tracking-[.3em] uppercase text-sm font-bold mb-4">Our Kitchen</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Menu Highlights</h2>
-      <p class="font-body text-cream/55 text-lg max-w-xl mx-auto">Everything is made fresh every morning. No exceptions.</p>
+<!-- ═══════════════════ MENU ══════════════════════════════════ -->
+<section id="menu" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:8px;">
+      <p class="section-eyebrow" style="color:var(--gold-l);">Our Kitchen</p>
+      <h2 class="section-title">Menu Highlights</h2>
+      <p class="section-desc">Everything made fresh every morning. No exceptions.</p>
     </div>
 
-    <!-- Main cards -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+    <div class="menu-grid stagger">
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-chile to-terracotta"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-chile/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1M4.22 4.22l.707.707M18.364 18.364l.707.707M1 12h1m20 0h1M4.22 19.78l.707-.707M18.364 5.636l.707-.707"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--chile),var(--terra))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(185,28,28,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#B91C1C"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1M4.22 4.22l.707.707M18.364 18.364l.707.707M1 12h1m20 0h1M4.22 19.78l.707-.707M18.364 5.636l.707-.707"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Chiles Rellenos</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Poblano peppers stuffed with savory filling, battered in egg, and simmered in house-made salsa roja. A true signature dish.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-gold-light bg-gold/15 px-3 py-1 rounded-full">Signature</span>
+          <div class="menu-name">Chiles Rellenos</div>
+          <p class="menu-desc">Poblano peppers stuffed with savory filling, battered in egg, simmered in house-made salsa roja. A true signature.</p>
+          <span class="menu-tag" style="background:rgba(180,83,9,.15);color:var(--gold-l);">Signature</span>
         </div>
-      </article>
+      </div>
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-terracotta to-gold"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-terracotta/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--terra),var(--gold-l))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(194,65,12,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#C2410C"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Menudo</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Slow-simmered tripe in a bold red chile broth with hominy — the Sunday morning tradition. Served with fresh handmade tortillas.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-terracotta bg-terracotta/15 px-3 py-1 rounded-full">Weekend Tradition</span>
+          <div class="menu-name">Menudo</div>
+          <p class="menu-desc">Slow-simmered tripe in bold red chile broth with hominy — the Sunday morning tradition. With fresh handmade tortillas.</p>
+          <span class="menu-tag" style="background:rgba(194,65,12,.15);color:var(--terra);">Weekend Tradition</span>
         </div>
-      </article>
+      </div>
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-gold to-gold-light"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-gold/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-gold-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--gold-l),var(--gold))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(180,83,9,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#B45309"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Cecina Plate</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Salt-cured beef, pan-seared to perfection. Served with fresh beans, rice, and warm handmade tortillas — generously portioned.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-gold-light bg-gold/15 px-3 py-1 rounded-full">Traditional</span>
+          <div class="menu-name">Cecina Plate</div>
+          <p class="menu-desc">Salt-cured beef, pan-seared to perfection. Served with fresh beans, rice, and warm handmade tortillas.</p>
+          <span class="menu-tag" style="background:rgba(180,83,9,.15);color:var(--gold-l);">Traditional</span>
         </div>
-      </article>
+      </div>
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-chile to-brown-light"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-chile/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--chile),var(--brown-l))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(185,28,28,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#B91C1C"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Enchiladas</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Your choice of red chile, green tomatillo, or rich mole sauce. Filled and rolled by hand, topped with crema and queso fresco.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-chile bg-chile/15 px-3 py-1 rounded-full">3 Sauce Options</span>
+          <div class="menu-name">Enchiladas</div>
+          <p class="menu-desc">Your choice of red chile, green tomatillo, or rich mole sauce. Hand-rolled, topped with crema and queso fresco.</p>
+          <span class="menu-tag" style="background:rgba(185,28,28,.15);color:var(--chile);">3 Sauce Options</span>
         </div>
-      </article>
+      </div>
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-terracotta to-chile"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-terracotta/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--terra),var(--chile))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(194,65,12,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#C2410C"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Flautas</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Crispy rolled tortillas stuffed with seasoned chicken or beef, flash-fried golden and served with guacamole and sour cream.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-terracotta bg-terracotta/15 px-3 py-1 rounded-full">Crispy &amp; Golden</span>
+          <div class="menu-name">Flautas</div>
+          <p class="menu-desc">Crispy rolled tortillas stuffed with seasoned chicken or beef, flash-fried golden. Served with guac and sour cream.</p>
+          <span class="menu-tag" style="background:rgba(194,65,12,.15);color:var(--terra);">Crispy &amp; Golden</span>
         </div>
-      </article>
+      </div>
 
-      <article class="menu-card bg-brown-mid rounded-2xl overflow-hidden shadow-lg border border-white/5">
-        <div class="h-1.5 bg-gradient-to-r from-gold-light to-terracotta"></div>
-        <div class="p-6">
-          <div class="w-11 h-11 bg-gold/20 rounded-xl flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-gold-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-            </svg>
+      <div class="menu-card">
+        <div class="menu-bar" style="background:linear-gradient(90deg,var(--gold-l),var(--terra))"></div>
+        <div class="menu-body">
+          <div class="menu-icon-wrap" style="background:rgba(180,83,9,.15)">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#B45309"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
           </div>
-          <h3 class="font-display text-xl font-bold text-white mb-2">Café de Olla</h3>
-          <p class="font-body text-cream/60 text-sm leading-relaxed">Traditional clay-pot coffee brewed with cinnamon and piloncillo — the perfect companion to any meal, especially breakfast.</p>
-          <span class="mt-4 inline-block text-xs font-body font-bold text-gold-light bg-gold/15 px-3 py-1 rounded-full">House Specialty</span>
+          <div class="menu-name">Café de Olla</div>
+          <p class="menu-desc">Traditional clay-pot coffee brewed with cinnamon and piloncillo. The perfect companion to any meal.</p>
+          <span class="menu-tag" style="background:rgba(180,83,9,.15);color:var(--gold-l);">House Specialty</span>
         </div>
-      </article>
+      </div>
 
     </div>
 
-    <!-- Also available row -->
-    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
-        <div class="font-display text-white font-semibold text-sm">Tacos Dorados</div>
-        <div class="font-body text-cream/40 text-xs mt-0.5">Crispy street-style</div>
-      </div>
-      <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
-        <div class="font-display text-white font-semibold text-sm">Handmade Tortillas</div>
-        <div class="font-body text-cream/40 text-xs mt-0.5">Pressed every morning</div>
-      </div>
-      <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
-        <div class="font-display text-white font-semibold text-sm">Huevos Rancheros</div>
-        <div class="font-body text-cream/40 text-xs mt-0.5">Breakfast classic</div>
-      </div>
-      <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
-        <div class="font-display text-white font-semibold text-sm">Agua Fresca</div>
-        <div class="font-body text-cream/40 text-xs mt-0.5">Made in-house daily</div>
-      </div>
+    <div class="menu-also reveal" style="margin-top:12px;">
+      <div class="menu-also-item"><div class="menu-also-name">Tacos Dorados</div><div class="menu-also-sub">Crispy street-style</div></div>
+      <div class="menu-also-item"><div class="menu-also-name">Handmade Tortillas</div><div class="menu-also-sub">Pressed every morning</div></div>
+      <div class="menu-also-item"><div class="menu-also-name">Huevos Rancheros</div><div class="menu-also-sub">Breakfast classic</div></div>
+      <div class="menu-also-item"><div class="menu-also-name">Agua Fresca</div><div class="menu-also-sub">Made in-house daily</div></div>
     </div>
-
-    <p class="font-body text-cream/40 text-sm text-center mt-8 italic">Full menu available at the restaurant. Ask about daily specials!</p>
+    <p style="text-align:center;font-size:.8rem;color:rgba(253,246,236,.35);margin-top:16px;font-style:italic;">Full menu at the restaurant. Ask about daily specials!</p>
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════
-     LOCATION
-════════════════════════════════════ -->
-<section id="location" class="py-24 bg-cream">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="text-center mb-16 reveal">
-      <p class="font-body text-terracotta tracking-[.3em] uppercase text-sm font-bold mb-4">Find Us</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-4">Come Visit Us</h2>
-      <p class="font-body text-brown-light text-lg max-w-xl mx-auto">Right on N Broadway in the heart of Lincoln Heights, Los Angeles.</p>
+<!-- ═══════════════════ LOCATION ═════════════════════════════ -->
+<section id="location" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:40px;">
+      <p class="section-eyebrow">Find Us</p>
+      <h2 class="section-title">Come Visit Us</h2>
+      <p style="font-size:.9375rem;color:var(--brown-l);">Right on N Broadway in the heart of Lincoln Heights, Los Angeles.</p>
     </div>
+    <div class="location-grid">
+      <div class="location-card reveal-l">
+        <div class="location-card-top"></div>
+        <div class="location-card-body">
+          <div class="location-name">La Morenita</div>
 
-    <div class="grid lg:grid-cols-2 gap-8 items-start">
-
-      <!-- Info card -->
-      <div class="reveal-left bg-white rounded-3xl shadow-xl overflow-hidden border border-cream-dark">
-        <div class="h-2 bg-gradient-to-r from-chile to-terracotta"></div>
-        <div class="p-8 md:p-10">
-
-          <div class="flex items-start gap-4 mb-8">
-            <div class="w-12 h-12 rounded-full bg-chile/10 flex items-center justify-center flex-shrink-0 mt-1">
-              <svg class="w-6 h-6 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
             <div>
-              <h3 class="font-display text-2xl font-bold text-brown">La Morenita</h3>
-              <address class="font-body not-italic text-brown-light mt-1 leading-relaxed">
-                2620 N Broadway<br/>Los Angeles, CA 90031<br/>
-                <span class="text-brown/50 text-sm">(Lincoln Heights)</span>
-              </address>
+              <div class="info-label">Address</div>
+              <address class="info-val" style="font-style:normal;">2620 N Broadway<br/>Los Angeles, CA 90031<br/><span style="font-size:.75rem;color:rgba(120,53,15,.5)">Lincoln Heights</span></address>
             </div>
           </div>
 
-          <div class="space-y-5 mb-8">
-
-            <!-- Phone -->
-            <div class="flex items-start gap-4">
-              <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4.5 h-4.5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="font-body font-bold text-brown text-sm">Phone</div>
-                <a href="tel:+13232211687" class="font-body text-brown-light hover:text-chile transition-colors cursor-pointer">(323) 221-1687</a>
-              </div>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             </div>
+            <div>
+              <div class="info-label">Phone</div>
+              <div class="info-val"><a href="tel:+13232211687">(323) 221-1687</a></div>
+            </div>
+          </div>
 
-            <!-- Hours -->
-            <div class="flex items-start gap-4">
-              <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4.5 h-4.5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div class="flex-1">
-                <div class="font-body font-bold text-brown text-sm mb-2">Hours</div>
-                <table class="w-full font-body text-sm" aria-label="Restaurant hours">
-                  <tbody>
-                    <tr class="border-b border-cream-dark">
-                      <td class="py-1.5 text-brown-light">Monday – Friday</td>
-                      <td class="py-1.5 text-brown font-semibold text-right">8:00 AM – 4:00 PM</td>
-                    </tr>
-                    <tr class="border-b border-cream-dark">
-                      <td class="py-1.5 text-brown-light">Saturday</td>
-                      <td class="py-1.5 text-brown font-semibold text-right">8:00 AM – 3:00 PM</td>
-                    </tr>
-                    <tr>
-                      <td class="py-1.5 text-brown-light">Sunday</td>
-                      <td class="py-1.5 text-brown font-semibold text-right">8:00 AM – 3:00 PM</td>
-                    </tr>
-                  </tbody>
+          <div class="info-row">
+            <div class="info-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div style="flex:1">
+              <div class="info-label">Hours</div>
+              <div class="info-val">
+                <table style="width:100%;font-size:.8125rem;border-collapse:collapse;">
+                  <tr style="border-bottom:1px solid var(--cream-d)"><td style="padding:4px 0;color:var(--brown-l)">Mon – Fri</td><td style="text-align:right;font-weight:600;color:var(--brown);">8:00 AM – 4:00 PM</td></tr>
+                  <tr style="border-bottom:1px solid var(--cream-d)"><td style="padding:4px 0;color:var(--brown-l)">Saturday</td><td style="text-align:right;font-weight:600;color:var(--brown);">8:00 AM – 3:00 PM</td></tr>
+                  <tr><td style="padding:4px 0;color:var(--brown-l)">Sunday</td><td style="text-align:right;font-weight:600;color:var(--brown);">8:00 AM – 3:00 PM</td></tr>
                 </table>
               </div>
             </div>
+          </div>
 
-            <!-- Amenities -->
-            <div class="flex items-start gap-4">
-              <div class="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4.5 h-4.5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="font-body font-bold text-brown text-sm">Amenities</div>
-                <div class="font-body text-brown-light text-sm mt-0.5">Indoor &amp; outdoor seating · Pet-friendly patio · LGBTQ+ welcoming</div>
+          <div class="info-row" style="margin-bottom:0">
+            <div class="info-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+            <div>
+              <div class="info-label">Amenities</div>
+              <div class="amenities-pills">
+                <span class="pill pill-green" style="font-size:.7rem;">LGBTQ+ Welcoming</span>
+                <span class="pill pill-gold" style="font-size:.7rem;">Pet-Friendly Patio</span>
+                <span class="pill pill-terra" style="font-size:.7rem;">Indoor &amp; Outdoor</span>
               </div>
             </div>
           </div>
 
-          <!-- CTA buttons -->
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031"
-               target="_blank" rel="noopener noreferrer"
-               class="cursor-pointer flex-1 inline-flex items-center justify-center gap-2 bg-chile hover:bg-chile-light text-white font-body font-bold text-sm px-5 py-3 rounded-full transition-colors duration-200">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-              </svg>
+          <div class="location-btns">
+            <a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex:1;justify-content:center;">
+              <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
               Get Directions
             </a>
-            <a href="tel:+13232211687"
-               class="cursor-pointer flex-1 inline-flex items-center justify-center gap-2 border-2 border-brown/20 hover:border-chile text-brown hover:text-chile font-body font-bold text-sm px-5 py-3 rounded-full transition-colors duration-200">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
+            <a href="tel:+13232211687" class="btn btn-outline-dark" style="flex:1;justify-content:center;">
+              <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
               Call Us
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Google Maps embed -->
-      <div class="reveal-right rounded-3xl overflow-hidden shadow-xl border border-cream-dark h-full min-h-[420px]">
+      <div class="map-wrap reveal-r">
         <iframe
-          title="La Morenita location on Google Maps"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.1!2d-118.2172!3d34.0787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c4e1e1e1e1e1%3A0x1!2s2620+N+Broadway%2C+Los+Angeles%2C+CA+90031!5e0!3m2!1sen!2sus!4v1"
-          width="100%"
-          height="100%"
-          style="border:0; min-height:420px;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="map-frame"
-          aria-label="Map showing La Morenita at 2620 N Broadway, Los Angeles">
+          title="La Morenita on Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.1853041!2d-118.21966!3d34.07868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c4e5b5b5b5b5%3A0x1!2s2620+N+Broadway%2C+Los+Angeles%2C+CA+90031!5e0!3m2!1sen!2sus!4v1718000000000"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          aria-label="Map of La Morenita at 2620 N Broadway, Los Angeles">
         </iframe>
       </div>
     </div>
@@ -586,91 +773,72 @@
 </section>
 
 
-<!-- ════════════════════════════════════
-     REVIEWS
-════════════════════════════════════ -->
-<section id="reviews" class="py-24 bg-brown-mid">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="text-center mb-16 reveal">
-      <p class="font-body text-gold-light tracking-[.3em] uppercase text-sm font-bold mb-4">What People Say</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Loved by Lincoln Heights</h2>
-      <div class="flex items-center justify-center gap-1" aria-label="4.5 out of 5 stars">
-        <svg class="w-6 h-6 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        <svg class="w-6 h-6 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        <svg class="w-6 h-6 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        <svg class="w-6 h-6 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        <svg class="w-6 h-6 text-gold-light" fill="none" viewBox="0 0 20 20" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        <span class="font-body text-cream/50 text-sm ml-2">4.5 · 130+ reviews</span>
+<!-- ═══════════════════ REVIEWS ══════════════════════════════ -->
+<section id="reviews" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:8px;">
+      <p class="section-eyebrow">What People Say</p>
+      <h2 class="section-title">Loved by Lincoln Heights</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:8px;">
+        <svg class="star-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="star-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="star-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="star-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="star-icon" viewBox="0 0 20 20" fill="none" stroke="#D97706" aria-hidden="true"><path stroke-width="1.5" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span style="font-size:.8rem;color:rgba(253,246,236,.4);margin-left:6px;">4.5 · 130+ reviews</span>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
-
-      <blockquote class="review-card bg-brown rounded-2xl p-6">
-        <div class="flex gap-0.5 mb-3" aria-label="5 stars">
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+    <div class="reviews-grid stagger">
+      <blockquote class="review-card">
+        <div class="stars-row">
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
         </div>
-        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"Best breakfast burrito I've had in LA. The tortillas are handmade fresh every single morning. You can taste the difference immediately. Nothing out of a can — real, honest food."</p>
-        <footer class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-chile flex items-center justify-center text-white font-display font-bold text-sm" aria-hidden="true">M</div>
-          <div>
-            <div class="font-body font-bold text-white text-sm">Maria G.</div>
-            <div class="font-body text-cream/40 text-xs">Local Guide · Yelp</div>
-          </div>
-        </footer>
+        <p class="review-text">"Best breakfast burrito in LA. The tortillas are handmade fresh every single morning — you taste the difference immediately. Nothing out of a can."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:var(--chile)">M</div>
+          <div><div class="review-name">Maria G.</div><div class="review-source">Local Guide · Yelp</div></div>
+        </div>
       </blockquote>
 
-      <blockquote class="review-card bg-brown rounded-2xl p-6">
-        <div class="flex gap-0.5 mb-3" aria-label="5 stars">
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <blockquote class="review-card">
+        <div class="stars-row">
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
         </div>
-        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"A true hidden gem on N Broadway. The chiles rellenos are unlike anything else in LA — super authentic, no Americanization whatsoever. The café de olla alone is worth the trip."</p>
-        <footer class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-brown font-display font-bold text-sm" aria-hidden="true">J</div>
-          <div>
-            <div class="font-body font-bold text-white text-sm">José R.</div>
-            <div class="font-body text-cream/40 text-xs">Regular Customer</div>
-          </div>
-        </footer>
+        <p class="review-text">"A true hidden gem on N Broadway. The chiles rellenos are unlike anything else in LA — super authentic. The café de olla alone is worth the trip."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:var(--gold-l);color:var(--brown)">J</div>
+          <div><div class="review-name">José R.</div><div class="review-source">Regular Customer</div></div>
+        </div>
       </blockquote>
 
-      <blockquote class="review-card bg-brown rounded-2xl p-6">
-        <div class="flex gap-0.5 mb-3" aria-label="5 stars">
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <blockquote class="review-card">
+        <div class="stars-row">
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="star-icon" viewBox="0 0 20 20"><path fill="#D97706" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
         </div>
-        <p class="font-body text-cream/80 text-sm leading-relaxed mb-4">"Sunday menudo ritual for our whole family. They're so welcoming — the patio is cozy, perfect with the dog. Truly Latina-owned and it shows in every bite. We're regulars for life."</p>
-        <footer class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center text-white font-display font-bold text-sm" aria-hidden="true">A</div>
-          <div>
-            <div class="font-body font-bold text-white text-sm">Adriana L.</div>
-            <div class="font-body text-cream/40 text-xs">Lincoln Heights Local</div>
-          </div>
-        </footer>
+        <p class="review-text">"Sunday menudo with the whole family. They're so welcoming — patio is cozy, dog-friendly. Truly Latina-owned and it shows in every bite. Regulars for life."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:var(--terra)">A</div>
+          <div><div class="review-name">Adriana L.</div><div class="review-source">Lincoln Heights Local</div></div>
+        </div>
       </blockquote>
-
     </div>
 
-    <!-- Review CTA -->
-    <div class="text-center mt-12">
-      <a href="https://www.yelp.com/biz/la-morenita-restaurant-los-angeles"
-         target="_blank" rel="noopener noreferrer"
-         class="cursor-pointer inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-body font-semibold text-sm px-6 py-3 rounded-full transition-colors duration-200">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-        </svg>
+    <div class="reviews-cta">
+      <a href="https://www.yelp.com/biz/la-morenita-restaurant-los-angeles" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M21.111 18.226c-.141.906-2.551 3.048-3.538 3.113-.584.038-1.009-.271-2.099-1.951l-.46-.719c-.424-.655-.617-1.009-.617-1.37 0-.676.618-1.117 1.428-1.117.289 0 .655.074 1.009.291.52.324 2.83 1.944 3.199 2.249.423.349.536.678.078 1.504zm-7.459 1.496l-.076.307c-.239.934-.409 1.543-.952 1.846-.538.301-1.055.117-1.846-.502-1.244-.969-3.088-3.35-3.109-3.379-.35-.468-.336-.98.045-1.436.295-.348 1.65-1.492 2.451-2.088.463-.347.834-.541 1.214-.541.742 0 1.34.602 1.34 1.34 0 .249-.065.494-.193.737l-.874 1.716zm-9.33-5.476c-.299-.559-.342-1.125.131-1.7.473-.576 1.979-1.326 2.695-1.326.742 0 1.271.494 1.271 1.236 0 .25-.065.5-.19.737l-.877 1.717c-.191.374-.342.617-.342.904 0 .617.494 1.119 1.104 1.119.248 0 .494-.065.726-.193l.064-.031c.299-.148.539-.248.762-.248.617 0 1.119.494 1.119 1.11 0 .437-.259.869-.749 1.09l-.053.023c-.807.375-2.473.967-3.271.967-1.146 0-1.813-.852-1.813-1.852 0-.493.154-.984.457-1.421l.876-1.525zm13.027-6.736c.557-.248 2.258-.717 2.971-.717.742 0 1.271.51 1.271 1.25v.048c-.016.742-.508 1.18-1.396 1.439l-1.994.598c-.441.131-.617.287-.617.617 0 .617.506 1.12 1.123 1.12.307 0 .543-.049.779-.197l.021-.012c.299-.178.527-.289.77-.289.617 0 1.115.518 1.115 1.135 0 .456-.27.912-.76 1.133-.807.37-2.566.887-3.361.887-.926 0-1.703-.531-1.945-1.326l-.007-.025c-.109-.348-.166-.672-.166-1.004 0-.617.191-1.098.578-1.443l1.618-1.412zm-5.795-2.006c.105-.619.482-2.354.764-2.992.443-.998 1.398-1.012 2.182-.234.621.621.82 1.201.461 2.094-.064.16-.143.312-.236.461l-.852 1.373c-.303.492-.543.762-.992.762-.619 0-1.119-.514-1.119-1.133 0-.109.021-.223.063-.336l-.271.005z"/></svg>
         Read All Reviews on Yelp
       </a>
     </div>
@@ -678,94 +846,51 @@
 </section>
 
 
-<!-- ════════════════════════════════════
-     CONTACT
-════════════════════════════════════ -->
-<section id="contact" class="py-24 bg-cream">
-  <div class="max-w-4xl mx-auto px-6">
-
-    <div class="text-center mb-12 reveal">
-      <p class="font-body text-terracotta tracking-[.3em] uppercase text-sm font-bold mb-4">Come Visit</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-brown mb-4">We'd Love to See You</h2>
-      <p class="font-body text-brown-light text-lg max-w-xl mx-auto">Whether it's your first visit or your hundredth, you'll always feel at home at La Morenita.</p>
+<!-- ═══════════════════ CONTACT ══════════════════════════════ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:28px;">
+      <p class="section-eyebrow">Come Visit</p>
+      <h2 class="section-title">We'd Love to See You</h2>
+      <p style="font-size:.9375rem;color:var(--brown-l);max-width:420px;margin:0 auto;">Whether it's your first visit or your hundredth, you'll always feel at home.</p>
     </div>
-
-    <!-- CTA banner -->
-    <div class="reveal bg-gradient-to-br from-brown to-brown-mid rounded-3xl p-10 md:p-14 text-center shadow-2xl mb-10">
-      <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Ready to Eat?</h3>
-      <p class="font-body text-cream/65 text-lg mb-8 max-w-md mx-auto">Stop by 2620 N Broadway — open daily for breakfast and lunch. Bring the family, bring the dog.</p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031"
-           target="_blank" rel="noopener noreferrer"
-           class="cursor-pointer inline-flex items-center gap-2 bg-gold-light hover:bg-gold text-brown font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base shadow-xl">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
+    <div class="cta-banner reveal">
+      <h3>Ready to Eat?</h3>
+      <p>Stop by 2620 N Broadway — open daily for breakfast &amp; lunch. Bring the family, bring the dog.</p>
+      <div class="cta-btns">
+        <a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+          <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           Get Directions
         </a>
-        <a href="tel:+13232211687"
-           class="cursor-pointer inline-flex items-center gap-2 border-2 border-white/30 hover:border-gold-light text-white hover:text-gold-light font-body font-bold px-8 py-4 rounded-full transition-colors duration-200 text-base">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-          </svg>
+        <a href="tel:+13232211687" class="btn btn-outline">
+          <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           (323) 221-1687
         </a>
       </div>
     </div>
-
-    <!-- Hours + Specials -->
-    <div class="reveal grid md:grid-cols-2 gap-6">
-      <div class="bg-white rounded-2xl p-6 shadow border border-cream-dark">
-        <h3 class="font-display text-lg font-bold text-brown mb-4 flex items-center gap-2">
-          <svg class="w-5 h-5 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
+    <div class="contact-grid reveal">
+      <div class="contact-card">
+        <h4>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           Hours of Operation
-        </h3>
-        <table class="w-full font-body text-sm" aria-label="Hours of operation">
-          <tbody>
-            <tr class="border-b border-cream-dark">
-              <td class="py-2 text-brown-light">Monday – Friday</td>
-              <td class="py-2 text-brown font-semibold text-right">8:00 AM – 4:00 PM</td>
-            </tr>
-            <tr class="border-b border-cream-dark">
-              <td class="py-2 text-brown-light">Saturday</td>
-              <td class="py-2 text-brown font-semibold text-right">8:00 AM – 3:00 PM</td>
-            </tr>
-            <tr>
-              <td class="py-2 text-brown-light">Sunday</td>
-              <td class="py-2 text-brown font-semibold text-right">8:00 AM – 3:00 PM</td>
-            </tr>
-          </tbody>
+        </h4>
+        <table class="hours-table">
+          <tr><td>Monday – Friday</td><td>8:00 AM – 4:00 PM</td></tr>
+          <tr><td>Saturday</td><td>8:00 AM – 3:00 PM</td></tr>
+          <tr><td>Sunday</td><td>8:00 AM – 3:00 PM</td></tr>
         </table>
-        <p class="font-body text-xs text-brown-light/50 mt-3 italic">Hours may vary on holidays. Call ahead to confirm.</p>
+        <p style="font-size:.75rem;color:rgba(120,53,15,.45);margin-top:10px;font-style:italic;">Call ahead on holidays.</p>
       </div>
-
-      <div class="bg-white rounded-2xl p-6 shadow border border-cream-dark">
-        <h3 class="font-display text-lg font-bold text-brown mb-4 flex items-center gap-2">
-          <svg class="w-5 h-5 text-chile" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-          </svg>
+      <div class="contact-card">
+        <h4>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
           Highlights
-        </h3>
-        <ul class="font-body text-sm space-y-0">
-          <li class="flex justify-between border-b border-cream-dark py-2">
-            <span class="text-brown-light">Every Day</span>
-            <span class="text-brown font-semibold">Fresh Handmade Tortillas</span>
-          </li>
-          <li class="flex justify-between border-b border-cream-dark py-2">
-            <span class="text-brown-light">Sunday Morning</span>
-            <span class="text-brown font-semibold">Menudo</span>
-          </li>
-          <li class="flex justify-between border-b border-cream-dark py-2">
-            <span class="text-brown-light">Always</span>
-            <span class="text-brown font-semibold">Zero Canned Ingredients</span>
-          </li>
-          <li class="flex justify-between py-2">
-            <span class="text-brown-light">Patio</span>
-            <span class="text-brown font-semibold">Pets Welcome</span>
-          </li>
+        </h4>
+        <ul class="specials-list">
+          <li><span class="s-label">Every Day</span><span class="s-val">Fresh Handmade Tortillas</span></li>
+          <li><span class="s-label">Sunday</span><span class="s-val">Menudo</span></li>
+          <li><span class="s-label">Always</span><span class="s-val">Zero Canned Ingredients</span></li>
+          <li><span class="s-label">Patio</span><span class="s-val">Pets Welcome</span></li>
         </ul>
       </div>
     </div>
@@ -773,143 +898,92 @@
 </section>
 
 
-<!-- ════════════════════════════════════
-     FOOTER
-════════════════════════════════════ -->
-<footer class="bg-brown py-14 border-t border-white/10">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-3 gap-10 mb-10">
-
-      <div>
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-9 h-9 rounded-full bg-chile flex items-center justify-center flex-shrink-0">
-            <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true">
-              <path d="M12 3C9 3 6.5 6 6.5 9.5c0 2.5 1.2 4.7 3.5 6V18h4v-2.5c2.3-1.3 3.5-3.5 3.5-6C17.5 6 15 3 12 3z" fill="#FDF6EC"/>
-            </svg>
+<!-- ═══════════════════ FOOTER ════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--chile);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 3C9 3 6.5 6 6.5 9.5c0 2.5 1.2 4.7 3.5 6V18h4v-2.5c2.3-1.3 3.5-3.5 3.5-6C17.5 6 15 3 12 3z" fill="#FDF6EC"/></svg>
           </div>
           <div>
-            <div class="font-display font-black text-white">La Morenita</div>
-            <div class="font-body text-gold-light text-xs tracking-widest uppercase">Lincoln Heights, LA</div>
+            <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:1.05rem;color:#fff;">La Morenita</div>
+            <div style="font-size:.65rem;color:var(--gold-l);letter-spacing:.18em;text-transform:uppercase;">Lincoln Heights, LA</div>
           </div>
         </div>
-        <p class="font-body text-cream/45 text-sm leading-relaxed">Latina-owned family restaurant serving authentic Mexican food in Lincoln Heights since the 1970s. No canned ingredients, ever.</p>
-        <!-- Social -->
-        <div class="flex gap-3 mt-5">
-          <a href="https://www.instagram.com/lamorenitaonbroadway/" target="_blank" rel="noopener noreferrer"
-             aria-label="Instagram"
-             class="w-9 h-9 rounded-full bg-white/10 hover:bg-chile flex items-center justify-center transition-colors duration-200 cursor-pointer">
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
+        <p>Latina-owned family restaurant serving authentic Mexican food in Lincoln Heights since the 1970s. No canned ingredients, ever.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/lamorenitaonbroadway/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a href="https://www.facebook.com/lamorenitaonbroadway/" target="_blank" rel="noopener noreferrer"
-             aria-label="Facebook"
-             class="w-9 h-9 rounded-full bg-white/10 hover:bg-chile flex items-center justify-center transition-colors duration-200 cursor-pointer">
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
+          <a href="https://www.facebook.com/lamorenitaonbroadway/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
-          <a href="https://www.yelp.com/biz/la-morenita-restaurant-los-angeles" target="_blank" rel="noopener noreferrer"
-             aria-label="Yelp"
-             class="w-9 h-9 rounded-full bg-white/10 hover:bg-chile flex items-center justify-center transition-colors duration-200 cursor-pointer">
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.624 0 11.99-5.373 11.99-12.013C24.007 5.367 18.641 0 12.017 0z"/>
-            </svg>
+          <a href="https://www.yelp.com/biz/la-morenita-restaurant-los-angeles" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Yelp">
+            <svg viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.624 0 11.99-5.373 11.99-12.013C24.007 5.367 18.641 0 12.017 0z"/></svg>
           </a>
         </div>
       </div>
-
-      <div>
-        <h4 class="font-display text-white font-bold mb-5">Address &amp; Hours</h4>
-        <address class="font-body not-italic text-cream/55 text-sm leading-relaxed mb-4">
-          2620 N Broadway<br/>
-          Los Angeles, CA 90031<br/>
-          Lincoln Heights
-        </address>
-        <div class="font-body text-cream/55 text-sm space-y-1">
-          <div>Mon – Fri: <span class="text-cream/80">8:00 AM – 4:00 PM</span></div>
-          <div>Sat – Sun: <span class="text-cream/80">8:00 AM – 3:00 PM</span></div>
+      <div class="footer-col">
+        <h4>Address &amp; Hours</h4>
+        <address>2620 N Broadway<br/>Los Angeles, CA 90031<br/>Lincoln Heights</address>
+        <div style="font-size:.8125rem;color:rgba(253,246,236,.4);margin-top:8px;line-height:1.8;">
+          Mon – Fri: <span style="color:rgba(253,246,236,.65);">8 AM – 4 PM</span><br/>
+          Sat – Sun: <span style="color:rgba(253,246,236,.65);">8 AM – 3 PM</span>
         </div>
-        <a href="tel:+13232211687" class="font-body text-gold-light hover:text-gold transition-colors text-sm mt-3 inline-block cursor-pointer">(323) 221-1687</a>
+        <a href="tel:+13232211687" class="tel">(323) 221-1687</a>
       </div>
-
-      <div>
-        <h4 class="font-display text-white font-bold mb-5">Quick Links</h4>
-        <nav aria-label="Footer navigation">
-          <ul class="space-y-2 font-body text-sm text-cream/55">
-            <li><a href="#about"    class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Our Story</a></li>
-            <li><a href="#menu"     class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Menu Highlights</a></li>
-            <li><a href="#location" class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Location &amp; Hours</a></li>
-            <li><a href="#reviews"  class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Reviews</a></li>
-            <li><a href="#contact"  class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Contact</a></li>
-            <li>
-              <a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031"
-                 target="_blank" rel="noopener noreferrer"
-                 class="hover:text-gold-light transition-colors duration-200 cursor-pointer">Get Directions ↗</a>
-            </li>
-          </ul>
-        </nav>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-nav">
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#location">Location &amp; Hours</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://maps.google.com/?q=2620+N+Broadway,+Los+Angeles,+CA+90031" target="_blank" rel="noopener noreferrer">Get Directions ↗</a></li>
+        </ul>
       </div>
     </div>
-
-    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-      <p class="font-body text-cream/25 text-xs">© 2025 La Morenita Restaurant. All rights reserved.</p>
-      <p class="font-body text-cream/25 text-xs">Latina-owned · Family-operated · Lincoln Heights, LA · Since the 1970s</p>
+    <div class="footer-bottom">
+      <span>© 2025 La Morenita Restaurant. All rights reserved.</span>
+      <span>Latina-owned · Family-operated · Lincoln Heights, LA · Since the 1970s</span>
     </div>
   </div>
 </footer>
 
 
-<!-- ════════════════════════════════════
-     SCRIPTS
-════════════════════════════════════ -->
 <script>
-  // ── Navbar scroll behavior ──────────────────────────
+  // Navbar scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      navbar.classList.add('bg-brown/95', 'backdrop-blur-md', 'shadow-xl');
-    } else {
-      navbar.classList.remove('bg-brown/95', 'backdrop-blur-md', 'shadow-xl');
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  // ── Mobile menu ──────────────────────────────────────
-  const btn        = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen   = document.getElementById('icon-open');
-  const iconClose  = document.getElementById('icon-close');
-
-  btn.addEventListener('click', () => {
-    const isOpen = !mobileMenu.classList.contains('hidden');
-    mobileMenu.classList.toggle('hidden', isOpen);
-    iconOpen.classList.toggle('hidden', !isOpen);
-    iconClose.classList.toggle('hidden', isOpen);
-    btn.setAttribute('aria-expanded', String(!isOpen));
+  // Mobile menu
+  const hamBtn   = document.getElementById('ham-btn');
+  const mobileM  = document.getElementById('mobile-menu');
+  const hamOpen  = document.getElementById('ham-open');
+  const hamClose = document.getElementById('ham-close');
+  hamBtn.addEventListener('click', () => {
+    const open = mobileM.classList.toggle('open');
+    hamOpen.style.display  = open ? 'none'  : 'block';
+    hamClose.style.display = open ? 'block' : 'none';
+    hamBtn.setAttribute('aria-expanded', String(open));
   });
+  document.querySelectorAll('.m-link').forEach(l => l.addEventListener('click', () => {
+    mobileM.classList.remove('open');
+    hamOpen.style.display  = 'block';
+    hamClose.style.display = 'none';
+    hamBtn.setAttribute('aria-expanded', 'false');
+  }));
 
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // ── Scroll-reveal + stagger ──────────────────────────
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => {
-    revealObserver.observe(el);
-  });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .stagger').forEach(el => obs.observe(el));
 </script>
 
 </body>
